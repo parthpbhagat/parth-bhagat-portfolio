@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+import { ModeToggle } from "./ModeToggle";
+
 const navLinks = [{
   label: "About",
   href: "#about"
@@ -65,7 +67,8 @@ const Navbar = () => {
   }} transition={{
     duration: 0.6
   }} className={`fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 md:px-12 lg:px-24 py-4 sm:py-6 transition-all duration-300 ${isScrolled ? "bg-background/80 backdrop-blur-lg border-b border-border/50 py-3 sm:py-4" : ""}`}>
-      <div className="max-w-6xl mx-auto flex items-center justify-center">
+      <div className="max-w-6xl mx-auto flex items-center justify-between">
+        <div className="flex-1 hidden md:block" /> {/* Left spacer for desktop */}
 
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-8">
@@ -73,7 +76,7 @@ const Navbar = () => {
             key={link.label} 
             href={link.href} 
             className={cn(
-              "text-sm transition-colors relative",
+               "text-sm transition-colors relative",
               activeSection === link.href.replace("#", "")
                 ? "text-primary font-medium"
                 : "text-muted-foreground hover:text-foreground"
@@ -91,12 +94,16 @@ const Navbar = () => {
           <a href="#contact" className="bg-primary text-primary-foreground px-5 py-2 rounded-full text-sm font-medium hover:glow-primary transition-all duration-300">
             Hire Me
           </a>
+          <ModeToggle />
         </div>
 
-        {/* Mobile menu button */}
-        <button onClick={() => setIsOpen(!isOpen)} className="md:hidden p-2 text-foreground" aria-label="Toggle menu">
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        {/* Mobile menu and toggle */}
+        <div className="md:hidden flex items-center gap-4 w-full justify-between">
+          <ModeToggle />
+          <button onClick={() => setIsOpen(!isOpen)} className="p-2 text-foreground" aria-label="Toggle menu">
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile nav */}

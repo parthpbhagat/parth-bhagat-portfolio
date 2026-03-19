@@ -148,65 +148,67 @@ const Resume = () => {
 
   return (
     <TooltipProvider>
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background py-12 md:py-20 px-4 sm:px-6">
         {/* Action buttons - hidden when printing */}
-        <div className="print:hidden fixed top-4 right-4 z-50 flex gap-2 flex-wrap justify-end">
+        <div className="print:hidden fixed bottom-6 right-6 md:top-24 md:right-8 z-50 flex flex-col md:flex-row gap-3 items-end">
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button onClick={handleDownloadATS} disabled={isGeneratingATS} variant="secondary" className="gap-2">
+              <Button onClick={handleDownloadATS} disabled={isGeneratingATS} variant="secondary" className="gap-2 shadow-lg backdrop-blur-sm bg-secondary/90">
                 <FileText size={18} className={isGeneratingATS ? "animate-pulse" : ""} />
-                {isGeneratingATS ? 'Generating...' : 'ATS Resume'}
+                <span className="hidden sm:inline">{isGeneratingATS ? 'Generating...' : 'ATS Resume'}</span>
+                <span className="sm:hidden">ATS</span>
               </Button>
             </TooltipTrigger>
-            <TooltipContent side="bottom" className="max-w-[250px] text-center">
+            <TooltipContent side="left" className="max-w-[250px] text-center">
               <p>ATS-friendly format is plain text that can be easily parsed by Applicant Tracking Systems used by recruiters</p>
             </TooltipContent>
           </Tooltip>
-          <Button onClick={handleDownloadPDF} disabled={isDownloading} className="gap-2">
+          <Button onClick={handleDownloadPDF} disabled={isDownloading} className="gap-2 shadow-lg">
             <Download size={18} />
-            {isDownloading ? 'Generating...' : 'Download PDF'}
+            <span className="hidden sm:inline">{isDownloading ? 'Generating...' : 'Download PDF'}</span>
+            <span className="sm:hidden">PDF</span>
           </Button>
-          <Button onClick={handlePrint} variant="outline" className="gap-2">
+          <Button onClick={handlePrint} variant="outline" className="gap-2 shadow-lg bg-background/90 backdrop-blur-sm">
             <Printer size={18} />
-            Print
+            <span className="hidden sm:inline">Print</span>
           </Button>
         </div>
 
         {/* Resume content */}
-        <div ref={resumeRef} className="max-w-[800px] mx-auto bg-white text-black p-6 md:p-8 print:p-6 print:max-w-none">
+        <div ref={resumeRef} className="max-w-[850px] mx-auto bg-white text-black p-6 sm:p-10 md:p-16 shadow-2xl rounded-sm print:p-8 print:shadow-none print:max-w-none">
           {/* Header */}
-          <header className="border-b-2 border-blue-600 pb-4 mb-4">
-            <h1 className="text-2xl md:text-3xl font-bold text-blue-800 mb-1">PARTH BHAGAT</h1>
-            <p className="text-base md:text-lg font-semibold text-gray-700 mb-3">Data Analyst</p>
-
-            <div className="flex flex-wrap gap-3 text-xs">
-              <a href="mailto:parthpbhagat@gmail.com" className="flex items-center gap-1 text-gray-700 hover:text-blue-600">
-                <Mail size={12} />
+          <header className="border-b-2 border-blue-600 pb-6 mb-8">
+            <h1 className="text-3xl md:text-5xl font-bold text-blue-800 mb-2 tracking-tight">PARTH BHAGAT</h1>
+            <p className="text-xl md:text-2xl font-semibold text-gray-700 mb-6 uppercase tracking-wider">Data Analyst</p>
+            
+            <div className="flex flex-wrap gap-x-6 gap-y-3 text-sm">
+              <a href="mailto:parthpbhagat@gmail.com" className="flex items-center gap-2 text-gray-700 hover:text-blue-600 transition-colors">
+                <Mail size={16} />
                 parthpbhagat@gmail.com
               </a>
-              <a href="tel:+919011494385" className="flex items-center gap-1 text-gray-700 hover:text-blue-600">
-                <Phone size={12} />
+              <a href="tel:+919011494385" className="flex items-center gap-2 text-gray-700 hover:text-blue-600 transition-colors">
+                <Phone size={16} />
                 +91 9011494385
               </a>
-              <span className="flex items-center gap-1 text-gray-700">
-                <MapPin size={12} />
-                India
+              <span className="flex items-center gap-2 text-gray-700">
+                <MapPin size={16} />
+                Ahmedabad, Gujarat
               </span>
-              <a href="https://github.com/parthpbhagat" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-gray-700 hover:text-blue-600">
-                <Github size={12} />
+              <a href="https://github.com/parthpbhagat" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-700 hover:text-blue-600 transition-colors">
+                <Github size={16} />
                 GitHub
               </a>
-              <a href="https://www.linkedin.com/in/parth-p-bhagat-203162369" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-gray-700 hover:text-blue-600">
-                <Linkedin size={12} />
+              <a href="https://www.linkedin.com/in/parth-p-bhagat-203162369" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-700 hover:text-blue-600 transition-colors">
+                <Linkedin size={16} />
                 LinkedIn
               </a>
             </div>
           </header>
 
           {/* Career Objective */}
-          <section className="mb-4">
-            <h2 className="text-sm font-bold uppercase tracking-wide text-blue-800 border-b border-blue-200 pb-1 mb-2 flex items-center gap-2">
-              <Target size={14} />
+          <section className="mb-8">
+            <h2 className="text-lg font-bold uppercase tracking-widest text-blue-800 border-b-2 border-blue-100 pb-2 mb-4 flex items-center gap-3">
+              <Target size={20} />
               Career Objective
             </h2>
             <p className="text-xs leading-relaxed text-gray-700">
@@ -306,181 +308,111 @@ const Resume = () => {
             <h2 className="text-sm font-bold uppercase tracking-wide text-blue-800 border-b border-blue-200 pb-1 mb-2">
               Certifications
             </h2>
-            <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
-                  <span>Power BI for Beginners</span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 text-sm">
+            {[
+              { name: "Power BI for Beginners", org: "SimpliLearn", color: "bg-blue-500" },
+              { name: "Power BI Workshop", org: "OfficeMaster", color: "bg-blue-500" },
+              { name: "SQL (Advanced)", org: "HackerRank", color: "bg-green-500", link: "https://www.hackerrank.com/certificates/iframe/2485af92b929" },
+              { name: "SQL (Intermediate)", org: "HackerRank", color: "bg-green-500", link: "https://www.hackerrank.com/certificates/iframe/71e49cece4ce" },
+              { name: "SQL (Basic)", org: "HackerRank", color: "bg-green-500", link: "https://www.hackerrank.com/certificates/iframe/d15b330465ee" },
+              { name: "Python (Basic)", org: "HackerRank", color: "bg-purple-500", link: "https://www.hackerrank.com/certificates/iframe/e089c7e204d7" },
+              { name: "Data Science & Analytics", org: "HP Life", color: "bg-orange-500", link: "https://www.life-global.org/certificate/6a9c6aff-a83b-4cf0-9500-aefcbb8bc14a" },
+              { name: "Introduction to MS Excel", org: "SimpliLearn", color: "bg-orange-500" },
+              { name: "Databricks for ML", org: "SimpliLearn", color: "bg-red-500" },
+              { name: "Software Engineer", org: "HackerRank", color: "bg-blue-500", link: "https://www.hackerrank.com/certificates/1282187483c1" },
+              { name: "Future Forward", org: "Certificate", color: "bg-cyan-500" },
+              { name: "Tech War", org: "Certificate", color: "bg-cyan-500" }
+            ].map((cert, i) => (
+              <div key={i} className="flex items-center justify-between py-1 border-b border-gray-50">
+                <div className="flex items-center gap-3">
+                  <div className={`w-2 h-2 ${cert.color} rounded-full`}></div>
+                  <span className="font-medium">{cert.name}</span>
+                  {cert.link && (
+                    <a href={cert.link} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 transition-colors print:hidden">
+                      <ExternalLink size={14} />
+                    </a>
+                  )}
                 </div>
-                <span className="text-gray-500 text-[10px]">SimpliLearn</span>
+                <span className="text-gray-500 text-xs shrink-0 ml-2">{cert.org}</span>
               </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
-                  <span>Power BI Workshop</span>
-                </div>
-                <span className="text-gray-500 text-[10px]">OfficeMaster</span>
+            ))}
+          </div>
+        </section>
+
+        {/* Education & Skills Certificate */}
+        <section className="mb-8">
+          <h2 className="text-lg font-bold uppercase tracking-widest text-blue-800 border-b-2 border-blue-100 pb-2 mb-4">
+            Education
+          </h2>
+          <div className="space-y-4 text-sm">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-1">
+              <div>
+                <span className="font-bold text-base">NSDC Skill Certificate</span>
+                <p className="text-gray-600">Python, SQL, Excel, HTML, CSS, Power BI, Data Analytics</p>
               </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
-                  <span>SQL (Advanced)</span>
-                  <a href="https://www.hackerrank.com/certificates/iframe/2485af92b929" target="_blank" rel="noopener noreferrer" className="text-blue-600 print:hidden">
-                    <ExternalLink size={10} />
-                  </a>
-                </div>
-                <span className="text-gray-500 text-[10px]">HackerRank</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
-                  <span>SQL (Intermediate)</span>
-                  <a href="https://www.hackerrank.com/certificates/iframe/71e49cece4ce" target="_blank" rel="noopener noreferrer" className="text-blue-600 print:hidden">
-                    <ExternalLink size={10} />
-                  </a>
-                </div>
-                <span className="text-gray-500 text-[10px]">HackerRank</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
-                  <span>SQL (Basic)</span>
-                  <a href="https://www.hackerrank.com/certificates/iframe/d15b330465ee" target="_blank" rel="noopener noreferrer" className="text-blue-600 print:hidden">
-                    <ExternalLink size={10} />
-                  </a>
-                </div>
-                <span className="text-gray-500 text-[10px]">HackerRank</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 bg-purple-500 rounded-full"></span>
-                  <span>Python (Basic)</span>
-                  <a href="https://www.hackerrank.com/certificates/iframe/e089c7e204d7" target="_blank" rel="noopener noreferrer" className="text-blue-600 print:hidden">
-                    <ExternalLink size={10} />
-                  </a>
-                </div>
-                <span className="text-gray-500 text-[10px]">HackerRank</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 bg-orange-500 rounded-full"></span>
-                  <span>Data Science & Analytics</span>
-                  <a href="https://www.life-global.org/certificate/6a9c6aff-a83b-4cf0-9500-aefcbb8bc14a" target="_blank" rel="noopener noreferrer" className="text-blue-600 print:hidden">
-                    <ExternalLink size={10} />
-                  </a>
-                </div>
-                <span className="text-gray-500 text-[10px]">HP Life</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 bg-orange-500 rounded-full"></span>
-                  <span>Introduction to MS Excel</span>
-                </div>
-                <span className="text-gray-500 text-[10px]">SimpliLearn</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 bg-red-500 rounded-full"></span>
-                  <span>Databricks for ML</span>
-                </div>
-                <span className="text-gray-500 text-[10px]">SimpliLearn</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
-                  <span>Software Engineer</span>
-                  <a href="https://www.hackerrank.com/certificates/iframe/1282187483c1" target="_blank" rel="noopener noreferrer" className="text-blue-600 print:hidden">
-                    <ExternalLink size={10} />
-                  </a>
-                </div>
-                <span className="text-gray-500 text-[10px]">HackerRank</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 bg-cyan-500 rounded-full"></span>
-                  <span>Generative AI with AWS</span>
-                </div>
-                <span className="text-gray-500 text-[10px]">SimpliLearn</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 bg-cyan-500 rounded-full"></span>
-                  <span>CrewAI Resume Review Agent</span>
-                </div>
-                <span className="text-gray-500 text-[10px]">SimpliLearn</span>
-              </div>
+              <span className="text-blue-600 font-semibold bg-blue-50 px-3 py-1 rounded-full text-xs">Continuing</span>
             </div>
-          </section>
-
-          {/* Education & Skills Certificate */}
-          <section className="mb-4">
-            <h2 className="text-sm font-bold uppercase tracking-wide text-blue-800 border-b border-blue-200 pb-1 mb-2">
-              Education
-            </h2>
-            <div className="space-y-2 text-xs">
-              <div className="flex justify-between items-start">
-                <div>
-                  <span className="font-semibold">NSDC Skill Certificate</span>
-                  <p className="text-gray-600 text-[10px]">Skills: Python, SQL, Excel, HTML, CSS, C, C++, Power BI</p>
-                </div>
-                <span className="text-gray-500 text-[10px]">Continuing</span>
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-1">
+              <div>
+                <span className="font-bold text-base">Bachelor's Degree</span>
+                <p className="text-gray-600">Undergraduate Program</p>
               </div>
-              <div className="flex justify-between">
-                <div>
-                  <span className="font-semibold">Degree Certificate</span>
-                  <p className="text-gray-600 text-[10px]">Undergraduate Program</p>
-                </div>
-                <span className="text-gray-500 text-[10px]">2018</span>
-              </div>
-              <div className="flex justify-between">
-                <div>
-                  <span className="font-semibold">12th Standard (ARTS)</span>
-                  <p className="text-gray-600 text-[10px]">Result: 53.54%</p>
-                </div>
-                <span className="text-gray-500 text-[10px]">2015</span>
-              </div>
-              <div className="flex justify-between">
-                <div>
-                  <span className="font-semibold">10th Standard</span>
-                  <p className="text-gray-600 text-[10px]">Result: 55.60%</p>
-                </div>
-                <span className="text-gray-500 text-[10px]">2013</span>
-              </div>
+              <span className="text-gray-500 text-xs font-medium">Completed 2018</span>
             </div>
-          </section>
-
-          {/* Key Strengths */}
-          <section className="mb-3">
-            <h2 className="text-sm font-bold uppercase tracking-wide text-blue-800 border-b border-blue-200 pb-1 mb-2">
-              Key Strengths
-            </h2>
-            <div className="flex flex-wrap gap-2 text-[10px]">
-              <span className="px-2 py-1 bg-blue-50 text-blue-700 rounded border border-blue-200">Dashboard Development</span>
-              <span className="px-2 py-1 bg-blue-50 text-blue-700 rounded border border-blue-200">Data Visualization</span>
-              <span className="px-2 py-1 bg-blue-50 text-blue-700 rounded border border-blue-200">Data Cleaning & ETL</span>
-              <span className="px-2 py-1 bg-blue-50 text-blue-700 rounded border border-blue-200">Report Generation</span>
-              <span className="px-2 py-1 bg-blue-50 text-blue-700 rounded border border-blue-200">Problem Solving</span>
-              <span className="px-2 py-1 bg-blue-50 text-blue-700 rounded border border-blue-200">Quick Learner</span>
-              <span className="px-2 py-1 bg-blue-50 text-blue-700 rounded border border-blue-200">Team Collaboration</span>
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-1">
+              <div>
+                <span className="font-bold text-base">Higher Secondary (12th Standard)</span>
+                <p className="text-gray-600">Arts Stream | Result: 53.54%</p>
+              </div>
+              <span className="text-gray-500 text-xs font-medium">2015</span>
             </div>
-          </section>
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-1">
+              <div>
+                <span className="font-bold text-base">Secondary School (10th Standard)</span>
+                <p className="text-gray-600">Result: 55.60%</p>
+              </div>
+              <span className="text-gray-500 text-xs font-medium">2013</span>
+            </div>
+          </div>
+        </section>
 
-          {/* Footer */}
-          <footer className="text-center text-[10px] text-gray-500 pt-3 border-t border-gray-200">
-            References available upon request
-          </footer>
-        </div>
+        {/* Key Strengths */}
+        <section className="mb-6">
+          <h2 className="text-lg font-bold uppercase tracking-widest text-blue-800 border-b-2 border-blue-100 pb-2 mb-4">
+            Key Strengths
+          </h2>
+          <div className="flex flex-wrap gap-3">
+            {[
+              "Dashboard Development", "Data Visualization", "Data Cleaning & ETL", 
+              "Report Generation", "Problem Solving", "Quick Learner", "Team Collaboration"
+            ].map((strength, i) => (
+              <span key={i} className="px-4 py-2 bg-blue-50 text-blue-700 rounded-lg border border-blue-100 font-medium text-xs md:text-sm shadow-sm">
+                {strength}
+              </span>
+            ))}
+          </div>
+        </section>
 
-        {/* Print styles */}
-        <style>{`
+        {/* Footer */}
+        <footer className="text-center text-xs text-gray-400 pt-8 border-t border-gray-100 italic">
+          References available upon request
+        </footer>
+      </div>
+
+      {/* Print styles */}
+      <style>{`
         @media print {
           @page {
-            margin: 0.3in;
+            margin: 0.5in;
             size: A4;
           }
           body {
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
+            background-color: white !important;
+          }
+          .print\\:hidden {
+            display: none !important;
           }
         }
       `}</style>
