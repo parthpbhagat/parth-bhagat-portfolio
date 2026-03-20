@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import AnimatedBackground from "./AnimatedBackground";
+import emailjs from "@emailjs/browser";
 
 const Contact = () => {
   const ref = useRef(null);
@@ -50,10 +51,24 @@ const Contact = () => {
       return;
     }
 
-    // Send email notification (don't block on this)
-    supabase.functions.invoke("send-contact-notification", {
-      body: trimmedData
-    }).catch(console.error);
+    // Send email notification using EmailJS
+    const emailParams = {
+      from_name: name.trim(),
+      from_email: email.trim(),
+      message: message.trim(),
+      to_name: "Parth Bhagat", // You can customize this
+    };
+
+    emailjs.send(
+      import.meta.env.VITE_EMAILJS_SERVICE_ID,
+      import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+      emailParams,
+      import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+    ).then((result) => {
+      console.log('Email successfully sent!', result.text);
+    }, (error) => {
+      console.error('Email failed to send:', error.text);
+    });
 
     setIsSubmitting(false);
     toast({
