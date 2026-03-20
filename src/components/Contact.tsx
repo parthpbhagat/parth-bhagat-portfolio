@@ -15,7 +15,7 @@ const Contact = () => {
     once: true,
     margin: "-100px"
   });
-  
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -24,7 +24,7 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!name.trim() || !email.trim() || !message.trim()) {
       toast({
         title: "Please fill in all fields",
@@ -34,9 +34,9 @@ const Contact = () => {
     }
 
     setIsSubmitting(true);
-    
+
     const trimmedData = { name: name.trim(), email: email.trim(), message: message.trim() };
-    
+
     const { error } = await supabase
       .from("contact_messages")
       .insert(trimmedData);
@@ -67,8 +67,14 @@ const Contact = () => {
     ).then((result) => {
       console.log('Email successfully sent!', result.text);
     }, (error) => {
-      console.error('Email failed to send:', error.text);
+      console.error('Email failed to send:', error);
+      toast({
+        title: "Email notification failed",
+        description: "Please check your EmailJS configuration.",
+        variant: "destructive"
+      });
     });
+
 
     setIsSubmitting(false);
     toast({
